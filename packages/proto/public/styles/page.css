@@ -1,0 +1,13 @@
+body {
+    background-color: var(--color-background-page);
+    color: var(--color-text-default);
+}
+
+header {
+    background-color: blue;
+    color: var(--color-text-header);
+}
+a {
+    color: var(--color-link);
+}
+
