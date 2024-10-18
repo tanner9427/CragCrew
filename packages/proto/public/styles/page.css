@@ -1,6 +1,7 @@
 body {
     background-color: var(--color-background-page);
     color: var(--color-text-default);
+    font-family: "Wix Madefor Text", serif;
 }
 
 header {
@@ -11,3 +12,10 @@ a {
     color: var(--color-link);
 }
 
+h1, h2, h3 {
+    font-family: "Prosto One", san-serif; 
+}
+
+.icon {
+    fill: white;
+}
