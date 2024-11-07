@@ -42,9 +42,9 @@ h1, h2, h3 {
 
 .event-titles > div {
     display: flex;
-    justify-content: center; /* Horizontally centers content */
-    align-items: center; /* Vertically centers content */
-    text-align: center; /* Optional: Centers text if you have text */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .event-row {

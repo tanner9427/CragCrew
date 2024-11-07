@@ -15,6 +15,23 @@
 
 </head>
 
+<script type="importmap">
+  {
+    "imports": {
+      "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+    }
+  }
+</script>
+
+<script type="module">
+  import { define } from "@calpoly/mustang";
+  import { ClimbEventCard } from "/scripts/climbing-event.js";
+
+  define({
+    "climb-event-card": ClimbEventCard
+  });
+</script>
+
 <header>
   <h1>Welcome to CragCrew</h1>
 </header>
