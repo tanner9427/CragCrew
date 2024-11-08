@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/reset.css">
-
+  <title>Dark Mode Toggle</title>
+  <link rel="stylesheet" href="styles/tokens.css">
 </head>
 
 <script type="importmap">
@@ -32,12 +33,16 @@
   });
 </script>
 
-<header>
-  <h1>Welcome to CragCrew</h1>
-</header>
+
 
 <body>
-  
+  <header>
+    <h1>Welcome to CragCrew</h1>
+    <label>
+      <input type="checkbox" id="dark-mode" autocomplete="off">
+      Dark mode
+    </label>
+  </header>
   
   <svg class="icon" width="50" height="50">
     <use href="../assets/boulder.svg"></use>
@@ -45,6 +50,7 @@
   <h2>Where climbers can meet other climbers.</h2>
   <p>This is the home page (for now).</p>
   <a href=events.html>events page</a>
+  <script src="scripts/dark-mode.js" type="module"></script>
 </body>
 
 </html>

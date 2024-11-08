@@ -1,6 +1,14 @@
 /* Color Palette: 0D1321 1D2D44 3E5C76 748CAB F0EBD8 */
 :root {
-    --color-background-page: #1d2d44;
+    --color-background-page: #7198d3;
+    --color-background-header: #426;
+    --color-text-default: black;
+    --color-text-header: black;
+    --color-link: #d9534f;
+}
+
+body.dark-mode {
+    --color-background-page: #324c72;
     --color-background-header: #426;
     --color-text-default: white;
     --color-text-header: white;
