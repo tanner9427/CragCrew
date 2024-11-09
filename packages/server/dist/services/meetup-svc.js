@@ -21,10 +21,22 @@ __export(meetup_svc_exports, {
   getDestination: () => getDestination
 });
 module.exports = __toCommonJS(meetup_svc_exports);
+var import_mongoose = require("mongoose");
+const ClimberSchema = new import_mongoose.Schema(
+  {
+    //   userid: { type: String, required: true, trim: true },
+    //   name: { type: String, required: true, trim: true },
+    //   nickname: { type: String, trim: true },
+    //   home: { type: String, trim: true },
+    //   airports: [String],
+    //   avatar: String,
+    //   color: String
+  },
+  { collection: "crag_climbers" }
+);
 const destinations = {
   yosemite: {
     id: "yosemite",
-    // You need an id
     date: /* @__PURE__ */ new Date(),
     // Placeholder date
     time: "08:00 AM",
@@ -51,7 +63,6 @@ const destinations = {
   },
   bishop: {
     id: "bishop",
-    // You need an id
     date: /* @__PURE__ */ new Date(),
     // Placeholder date
     time: "09:00 AM",

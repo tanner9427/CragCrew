@@ -33,32 +33,35 @@ export class MeetupPage {
     }
 
     renderBody() {
-        const { title, date, location, skillLevel, host, participants } = this.data;
+        const { climbType, date, location, skillLevelRequired, currentParticipants } = this.data as Meetup;
+        const host = currentParticipants[0]; // assuming the first participant is the host, adjust if different
+    
         return html`
         <body>
         <main class="page">
             <section class="meetup">
             <header>
-            <h1>${title}</h1>
-            <p>${date}</p>
-            <p>${location}</p>
-            <p>Skill Level: ${skillLevel}</p>
+                <h1>${climbType}</h1>
+                <p>${new Date(date).toLocaleDateString()}</p>
+                <p>${location.name}</p>
+                <p>Skill Level Required: ${skillLevelRequired}</p>
             </header>
             <section class="host">
-            <h2>Hosted by: ${host.name}</h2>
-            <p>${host.bio}</p>
+                <h2>Hosted by: ${host.name}</h2>
+                <p>Contact: ${host.contactInfo.email}</p>
             </section>
             <section class="participants">
-            <h3>Participants</h3>
-            <ul>
-                ${participants.map(this.renderParticipant).join("")}
-            </ul>
+                <h3>Participants</h3>
+                <ul>
+                    ${currentParticipants.map(this.renderParticipant).join("")}
+                </ul>
             </section>
-        </section>
+            </section>
         </main>
-    </body>
-    `;
+        </body>
+        `;
     }
+    
 
     renderParticipant(participant: any) {
         const { name, skillLevel } = participant;

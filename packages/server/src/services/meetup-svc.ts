@@ -1,8 +1,22 @@
 import { Meetup } from "../models";
+import { Schema, model } from "mongoose";
+
+const ClimberSchema = new Schema<Meetup>(
+    {
+        //   userid: { type: String, required: true, trim: true },
+        //   name: { type: String, required: true, trim: true },
+        //   nickname: { type: String, trim: true },
+        //   home: { type: String, trim: true },
+        //   airports: [String],
+        //   avatar: String,
+        //   color: String
+    },
+    { collection: "crag_climbers" }
+);
 
 const destinations: { [key: string]: Meetup } = {
     yosemite: {
-        id: "yosemite", // You need an id
+        id: "yosemite",
         date: new Date(), // Placeholder date
         time: "08:00 AM", // Placeholder time
         location: {
@@ -18,7 +32,7 @@ const destinations: { [key: string]: Meetup } = {
         equipmentNeeded: [], // Placeholder empty equipment
     },
     bishop: {
-        id: "bishop", // You need an id
+        id: "bishop",
         date: new Date(), // Placeholder date
         time: "09:00 AM", // Placeholder time
         location: {

@@ -22,13 +22,27 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
+var import_meetup = require("./pages/meetup");
+var import_meetup_svc = require("./services/meetup-svc");
+var import_mongo = require("./services/mongo");
+(0, import_mongo.connect)("CragCrew");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
-app.get("/hello", (req, res) => {
-  res.send("Hello, World");
-});
+app.get(
+  "/meetup/:meetupId",
+  (req, res) => {
+    const { meetupId } = req.params;
+    const data = (0, import_meetup_svc.getDestination)(meetupId);
+    if (!data) {
+      res.status(404).send("Meetup not found");
+      return;
+    }
+    const page = new import_meetup.MeetupPage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  }
+);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
