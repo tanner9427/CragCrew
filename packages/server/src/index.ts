@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { MeetupPage } from "./pages/meetup";
 import { getDestination } from "./services/meetup-svc";
 import { connect } from "./services/mongo";
+import climbers from './routes/climber';
 
 connect("CragCrew");
 
@@ -9,7 +10,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
+// Middleware:
+app.use(express.json());
 app.use(express.static(staticDir));
+app.use('/api/climbers', climbers);
 
 // Define a type for route parameters
 interface MeetupParams {
