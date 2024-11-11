@@ -1,7 +1,16 @@
 import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
-    export class ClimbEventCard extends HTMLElement {
+export class ClimbEventCard extends HTMLElement {
+
+    get src() {
+        return this.getAttribute("src");
+    }
+
+    connectedCallback() {
+        if (this.src) this.hydrate(this.src);
+    }
+
     static template = html`
         <div>
             <h3><slot name="event-name"></slot></h3>
@@ -10,6 +19,27 @@ import reset from "./styles/reset.css.js";
             <p><slot name="description"></slot></p>
         </div>
     `;
+
+    hydrate(url) {
+        fetch(url)
+            .then((res) => {
+                if (res.status !== 200) throw `Status: ${res.status}`;
+                return res.json();
+            })
+            .then((json) => this.renderSlots(json))
+            .catch((error) =>
+                console.log(`Failed to render data ${url}:`, error)
+            );
+    }
+
+    renderSlots(json) {
+        const entries = Object.entries(json);
+        const toSlot = ([key, value]) =>
+            html`<span slot="${key}">${value}</span>`
+
+        const fragment = entries.map(toSlot);
+        this.replaceChildren(...fragment);
+    }
 
     static styles = css`
         .event-card {
@@ -42,7 +72,7 @@ import reset from "./styles/reset.css.js";
     constructor() {
         super();
         shadow(this)
-        .template(ClimbEventCard.template)
-        .styles(reset.styles, ClimbEventCard.styles);
+            .template(ClimbEventCard.template)
+            .styles(reset.styles, ClimbEventCard.styles);
     }
-    }
+}
