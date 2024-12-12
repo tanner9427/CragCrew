@@ -1,22 +1,45 @@
-const checkbox = document.getElementById("dark-mode");
-const body = document.body;
+import { LitElement, html, css } from 'lit';
 
-function relayDarkModeEvent(event) {
-    event.stopPropagation();
-    const darkModeEvent = new CustomEvent("darkmode:toggle", {
-        detail: { isChecked: event.target.checked }
-    });
-    body.dispatchEvent(darkModeEvent);
+class DarkMode extends LitElement {
+    static styles = css`
+        
+    `;
+
+    constructor() {
+        super();
+        this.isDarkMode = false;
+    }
+
+    relayDarkModeEvent(event) {
+        const darkModeEvent = new CustomEvent("darkmode:toggle", {
+            detail: { isChecked: event.target.checked },
+            bubbles: true,
+            composed: true
+        });
+        this.dispatchEvent(darkModeEvent);
+
+        this.updateBodyClass(event.target.checked);
+    }
+
+    updateBodyClass(isChecked) {
+        if (isChecked) {
+            document.body.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
+        }
+    }
+
+    render() {
+        return html`
+            <label>
+                Dark Mode:
+                <input 
+                    type="checkbox" 
+                    @change=${this.relayDarkModeEvent} 
+                />
+            </label>
+        `;
+    }
 }
 
-const label = checkbox.parentElement;
-label.onchange = relayDarkModeEvent;
-
-body.addEventListener("darkmode:toggle", (event) => {
-    const isDarkMode = event.detail.isChecked;
-    if (isDarkMode) {
-        body.classList.add("dark-mode");
-    } else {
-        body.classList.remove("dark-mode");
-    }
-});
+customElements.define('dark-mode', DarkMode);
