@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CragCrew</title>
+    <link rel="stylesheet" href="styles/page.css">
+    <link rel="stylesheet" href="styles/tokens.css">
+    <!-- Prosto One, Wix Madefor Text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/reset.css">
+    <title>Dark Mode Toggle</title>
+    <link rel="stylesheet" href="styles/tokens.css">
+</head>
+
+<script type="module">
+    import { define, Auth } from "@calpoly/mustang";
+
+    define({ "mu-auth": Auth.Provider });
+</script>
+
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    // import { ClimbEventCard } from "/scripts/climbing-event.js";
+    import { define, Auth, Events } from "@calpoly/mustang";
+
+    define({
+        "climb-event-card": ClimbEventCard,
+        "climb-header": HeaderElement,
+        "mu-auth": Auth.Provider
+    });
+
+    define({ "mu-auth": Auth.Provider });
+    window.relayEvent = Events.relay;
+</script>
+
+<script type="module">
+    import { ClimbingHeaderElement } from "/src/components/climb-header.ts";
+    customElements.define("climb-header", ClimbingHeaderElement);
+</script>
+
+
+<body>
+    <mu-auth provides="climbing:auth">
+        <article class="page">
+            <climb-header></climb-header>
+
+            <svg class="icon" width="50" height="50">
+                <use href="../assets/boulder.svg"></use>
+            </svg>
+            <h2>Where climbers can meet other climbers.</h2>
+            <p>This is the home page (for now).</p>
+            <a href=events.html>events page</a>
+        </article>
+    </mu-auth>
+</body>
+
+</html>

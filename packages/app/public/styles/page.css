@@ -1,0 +1,79 @@
+body {
+    background-color: var(--color-background-page);
+    color: var(--color-text-default);
+    font-family: "Wix Madefor Text", serif;
+}
+
+header {
+    color: var(--color-text-header);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+a {
+    color: var(--color-link);
+}
+
+h1, h2, h3 {
+    font-family: "Prosto One", san-serif; 
+}
+
+.icon {
+    fill: white;
+}
+
+.event-list {
+    display: grid;
+    
+    gap: 20px;
+    padding: 20px;
+}
+
+.event-titles {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    font-size: 20px;
+    padding-bottom: 30px;
+    color: #F0EBD8;
+}
+
+.event-titles > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.event-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+}
+
+.event-row > div {
+    display: flex;
+    justify-content: center; /* Horizontally centers content */
+    align-items: center; /* Vertically centers content */
+    text-align: center; /* Optional: Centers text if you have text */
+    
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+}
+
+.sidebar {
+    grid-column: span 3;
+}
+
+.content {
+    grid-column: span 9;
+}

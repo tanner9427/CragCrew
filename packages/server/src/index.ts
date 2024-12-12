@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { MeetupPage } from "./pages/meetup";
-import { getDestination } from "./services/meetup-svc";
+import { getDestination, getAllDestinations, addDestination } from "./services/meetup-svc";
 import { connect } from "./services/mongo";
 import climbers from './routes/climber';
 import auth, { authenticateUser } from "./routes/auth";
@@ -23,6 +23,10 @@ interface MeetupParams {
     meetupId: string;
 }
 
+interface DestinationParams {
+    destinationId: string;
+}
+
 app.get(
     "/meetup/:meetupId",
     (req: Request<MeetupParams>, res: Response): void => {
@@ -43,6 +47,38 @@ app.get(
 app.get("/login", (req: Request, res: Response) => {
     const page = new LoginPage();
     res.set("Content-Type", "text/html").send(page.render());
+});
+
+// API: Get all destinations
+app.get("/api/destinations", authenticateUser, (req: Request, res: Response) => {
+    const destinations = getAllDestinations(); // Function to get all destinations
+    res.json(destinations);
+});
+
+// API: Get a destination by ID
+app.get("/api/destinations/:destinationId", authenticateUser, (req: Request<DestinationParams>, res: Response) => {
+    const { destinationId } = req.params;
+    const destination = getDestination(destinationId); // Function to fetch destination by ID
+
+    if (!destination) {
+        res.status(404).send({ error: "Destination not found" });
+        return;
+    }
+
+    res.json(destination);
+});
+
+// API: Add a new destination
+app.post("/api/destinations", authenticateUser, (req: Request, res: Response) => {
+    const newDestination = req.body;
+
+    if (!newDestination.name || !newDestination.location) {
+        res.status(400).send({ error: "Invalid destination data" });
+        return;
+    }
+
+    const addedDestination = addDestination(newDestination); // Function to add a destination
+    res.status(201).json(addedDestination);
 });
 
 app.listen(port, () => {
