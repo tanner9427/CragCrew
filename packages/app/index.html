@@ -46,18 +46,14 @@
 
 
 <body>
-    <mu-auth provides="climbing:auth">
-        <article class="page">
-            <climb-header></climb-header>
-
-            <svg class="icon" width="50" height="50">
-                <use href="../assets/boulder.svg"></use>
-            </svg>
-            <h2>Where climbers can meet other climbers.</h2>
-            <p>This is the home page (for now).</p>
-            <a href=events.html>events page</a>
-        </article>
-    </mu-auth>
+    <mu-history provides="climbing:history">
+        <mu-auth provides="climbing:auth" redirect="/login.html">
+            <article class="page">
+                <climb-header></climb-header>
+                <climbing-app></climbing-app>
+            </article>
+        </mu-auth>
+    </mu-history>
 </body>
 
 </html>

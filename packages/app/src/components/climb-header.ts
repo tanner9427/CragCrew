@@ -1,11 +1,17 @@
-// src/components/climb-header.ts
 import { LitElement, css, html } from "lit";
+import { property } from "lit/decorators.js";
+import { Tour } from "../../../server/src/models/tour";
 
 export class ClimbingHeaderElement extends LitElement {
+    @property({ type: Object }) tour: Tour | null = null;
+
     render() {
         return html`
             <header>
                 <h1>Welcome to CragCrew</h1>
+                ${this.tour
+                    ? html`<p>${this.tour.name} - ${this.tour.location} (${this.tour.difficulty})</p>`
+                    : html`<p>No tour selected</p>`}
                 <label>
                     <input type="checkbox" id="dark-mode" autocomplete="off">
                     Dark mode
@@ -31,6 +37,12 @@ export class ClimbingHeaderElement extends LitElement {
             margin: 0;
         }
 
+        p {
+            font-family: "Wix Madefor Text", sans-serif;
+            color: var(--text-color, #555);
+            margin: 0;
+        }
+
         label {
             display: flex;
             align-items: center;
@@ -43,3 +55,5 @@ export class ClimbingHeaderElement extends LitElement {
         }
     `;
 }
+
+customElements.define("climbing-header", ClimbingHeaderElement);
