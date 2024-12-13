@@ -47,10 +47,12 @@
 <body>
     <mu-history provides="climbing:history">
         <mu-auth provides="climbing:auth" redirect="/login.html">
-            <article class="page">
-                <climb-header></climb-header>
-                <climbing-app></climbing-app>
-            </article>
+            <mu-store provides="climbing:model">
+                <article class="page">
+                    <climb-header></climb-header>
+                    <climbing-app></climbing-app>
+                </article>
+            </mu-store>
         </mu-auth>
     </mu-history>
 </body>

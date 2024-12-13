@@ -2,8 +2,12 @@ import {
     Auth,
     History,
     Switch,
-    define
+    define,
+    Store
 } from "@calpoly/mustang";
+import { Msg } from "./messages.ts";
+import { Model, init } from "./model.ts";
+import update from "./update.ts";
 import { html, LitElement } from "lit";
 import { ClimbingHeaderElement } from "./components/climb-header";
 import { HomeViewElement } from "./components/views/home-view";
@@ -53,9 +57,15 @@ define({
     "climbing-app": AppElement,
     "mu-auth": Auth.Provider,
     "mu-history": History.Provider,
+    // "mu-store": class ClimbingStore extends Store.Provider<Model, Msg> {
+    //     constructor() {
+    //         super(update, init, "climbing:auth");
+    //     }
+    // },
     "mu-switch": class AppSwitch extends Switch.Element {
         constructor() {
             super(routes, "climbing:history", "climbing:auth");
         }
     },
+
 });
