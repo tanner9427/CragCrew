@@ -5,6 +5,8 @@ import { connect } from "./services/mongo";
 import climbers from './routes/climber';
 import auth, { authenticateUser } from "./routes/auth";
 import { LoginPage } from "./pages/auth";
+import fs from "node:fs/promises";
+import path from "path";
 
 connect("CragCrew");
 
@@ -79,6 +81,13 @@ app.post("/api/destinations", authenticateUser, (req: Request, res: Response) =>
 
     const addedDestination = addDestination(newDestination); // Function to add a destination
     res.status(201).json(addedDestination);
+});
+
+app.use("/app", (req: Request, res: Response) => {
+    const indexHtml = path.resolve(staticDir, "index.html");
+    fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+        res.send(html)
+    );
 });
 
 app.listen(port, () => {
