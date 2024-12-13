@@ -1,4 +1,3 @@
-// src/update.ts
 import { Auth, Update } from "@calpoly/mustang";
 import { Msg } from "./messages";
 import { Model } from "./model";
@@ -15,11 +14,19 @@ export default function update(
                 apply((model) => ({ ...model, route }))
             );
             break;
+
         case "climber/save":
-            saveClimber(message[1], user).then((climber) =>
-                apply((model) => ({ ...model, climber }))
-            );
+            saveClimber(message[1], user)
+                .then((climber) => {
+                    apply((model) => ({ ...model, climber }));
+                    message[1].onSuccess?.();
+                })
+                .catch((err) => {
+                    console.error("Error saving climber:", err);
+                    message[1].onFailure?.(err);
+                });
             break;
+
         default:
             const unhandled: never = message[0];
             throw new Error(`Unhandled Climbing message "${unhandled}"`);
@@ -48,5 +55,10 @@ function saveClimber(
             "Content-Type": "application/json",
         },
         body: JSON.stringify(msg.profile),
-    }).then((response) => response.json());
+    }).then((response) => {
+        if (!response.ok) {
+            throw new Error(`Failed to save climber: ${response.statusText}`);
+        }
+        return response.json();
+    });
 }
