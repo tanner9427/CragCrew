@@ -1,3 +1,4 @@
+// climbing-edit-element.ts
 import { define, Form, View } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
@@ -24,9 +25,7 @@ export class ClimbingEditElement extends View<Model, Msg> {
                 climbId: this.climbId,
                 profile: event.detail,
                 onSuccess: () =>
-                    History.dispatch(this, "history/navigate", {
-                        href: `/app/climber/${this.climbId}`,
-                    }),
+                    window.history.pushState({}, "", `/app/climber/${this.climbId}`),
                 onFailure: (error: Error) => console.error("ERROR:", error),
             },
         ]);
